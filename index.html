@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Website Putra</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      overflow: hidden;
+      font-family: Arial, sans-serif;
+    }
+    body {
+      display: flex;
+      flex-direction: row;
+    }
+
+    #sidebar {
+      width: 240px;
+      background-color: #2c3e50;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+    }
+
+    #sidebar h2 {
+      padding: 1rem;
+      text-align: center;
+      border-bottom: 1px solid #34495e;
+    }
+
+    #sidebar button {
+      margin: 10px auto;
+      padding: 10px 15px;
+      background: #27ae60;
+      color: white;
+      border: none;
+      cursor: pointer;
+      font-weight: bold;
+      border-radius: 5px;
+      width: 80%;
+    }
+
+    #sidebar ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      flex-grow: 1;
+      overflow-y: auto;
+    }
+
+    #sidebar li {
+      padding: 15px;
+      border-bottom: 1px solid #34495e;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+    }
+
+    #sidebar li:hover,
+    #sidebar li.active {
+      background-color: #2980b9;
+    }
+
+    #main {
+      flex-grow: 1;
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #ecf0f1;
+    }
+
+    #slideFrame {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    @media (max-width: 600px) {
+      #sidebar {
+        width: 100px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="sidebar">
+    <h2>Popular Culture</h2>
+    <ul id="pertemuanList">
+      <li data-link="https://view.officeapps.live.com/op/view.aspx?src=https%3A%2F%2Fsj.unikom.ac.id%2Fwp-content%2Fuploads%2F2025%2F06%2FBAB-1-Putra-2.pptx&wdOrigin=BROWSELINK">Pertemuan 1</li>
+    </ul>
+  </div>
+
+  <div id="main">
+    <iframe id="slideFrame" src="https://view.officeapps.live.com/op/view.aspx?src=https%3A%2F%2Fsj.unikom.ac.id%2Fwp-content%2Fuploads%2F2025%2F06%2FBAB-1-Putra-2.pptx&wdOrigin=BROWSELINK" allowfullscreen></iframe>
+  </div>
+
+  <script>
+    const list = document.querySelectorAll('#pertemuanList li');
+    const iframe = document.getElementById('slideFrame');
+
+    list.forEach(li => {
+      li.addEventListener('click', () => {
+        list.forEach(item => item.classList.remove('active'));
+        li.classList.add('active');
+        iframe.src = li.getAttribute('data-link');
+      });
+    });
+
+    const fullscreenBtn = document.getElementById('fullscreenBtn');
+    const main = document.getElementById('main');
+
+    fullscreenBtn.addEventListener('click', () => {
+      if (!document.fullscreenElement) {
+        main.requestFullscreen();
+      } else {
+        document.exitFullscreen();
+      }
+    });
+
+    document.addEventListener('fullscreenchange', () => {
+      fullscreenBtn.textContent = document.fullscreenElement ? '⤢ Keluar Fullscreen' : '⤢ Fullscreen';
+    });
+  </script>
+</body>
+</html>
